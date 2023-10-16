@@ -40,7 +40,7 @@ $errorMiddleware->setErrorHandler(
 
 $validateJwtMiddleware = function ($request, $handler) {
     $response = new Response();
-    $key = getenv('JWT_KEY');
+    $key = 'ab7aa093c22e5504aae11b58096766764f7df675a3b68826ced9d54deed12e48';
     $authHeader = $request->getHeaderLine('Authorization');
     if (!$authHeader) {
         $response->getBody()->write(json_encode(["error" => "Token no proporcionado"]));
