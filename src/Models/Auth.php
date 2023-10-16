@@ -65,7 +65,7 @@ class Auth extends Database
             $signUp = $this->consult($sql, [$profile_uuid, $username, $passwordHash, 'User']);
 
             if ($signUp) {
-                $key = getenv('JWT_KEY');
+                $key = 'ab7aa093c22e5504aae11b58096766764f7df675a3b68826ced9d54deed12e48';
                 // Crear un token
                 $payload = array(
                     "iss" => "mxclick",
@@ -106,7 +106,7 @@ class Auth extends Database
         if (count($accountData) === 1) {
             if (password_verify($pass, $accountData[0]['pass'])) {
 
-                $key = getenv('JWT_KEY');
+                $key = 'ab7aa093c22e5504aae11b58096766764f7df675a3b68826ced9d54deed12e48';
                 // Crear un token
                 $payload = array(
                     "iss" => "mxclick",
