@@ -21,7 +21,7 @@ class LinkController
     
     function list(Request $request, Response $response)
     {
-      $user_uuid = $request->getAttribute('jwt')->data->user_uuid;
+      $user_uuid = $request->getAttribute('payload')->data->user_uuid;
       $link = new Link();
       $res = $link->listLink($user_uuid);
       
