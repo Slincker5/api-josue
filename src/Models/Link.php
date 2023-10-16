@@ -7,7 +7,7 @@ class Link extends Database
 {
     private $response;
 
-    public function addLink($link_name, $link_short, $link_real)
+    public function addLink($user_uuid, $link_name, $link_short, $link_real)
     {
         if (empty($link_name) || empty($link_short) || empty($link_real)) {
             $response['status'] = 'error';
