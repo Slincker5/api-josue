@@ -17,7 +17,7 @@ class Link extends Database
             date_default_timezone_set('America/Mexico_City');
 
             $datenow = date('Y-m-d H:i:s');
-            $sql = 'INSERT INTO direcciones (link_name, link_short, link_real, date) VALUES (?, ?, ?, ?)';
+            $sql = 'INSERT INTO direcciones (user_uuid, link_name, link_short, link_real, date) VALUES (?, ?, ?, ?, ?)';
             $add = $this->consult($sql, [$link_name, $link_short, $link_real, $datenow]);
 
             $response['status'] = 'OK';
