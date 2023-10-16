@@ -18,7 +18,7 @@ class Link extends Database
 
             $datenow = date('Y-m-d H:i:s');
             $sql = 'INSERT INTO direcciones (user_uuid, link_name, link_short, link_real, date) VALUES (?, ?, ?, ?, ?)';
-            $add = $this->consult($sql, [$link_name, $link_short, $link_real, $datenow]);
+            $add = $this->consult($sql, [$user_uuid, $link_name, $link_short, $link_real, $datenow]);
 
             $response['status'] = 'OK';
             $response['message'] = 'Enlace creado con exito';
