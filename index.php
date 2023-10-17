@@ -75,7 +75,8 @@ $validateJwtMiddleware = function ($request, $handler) {
 $app->group('/link', function ($group) {
 
     $group->post('/create', LinkController::class . ':create');
-    $group->post('/list', LinkController::class . ':list');
+    $group->get('/list', LinkController::class . ':list');
+    $group->put('/edit', LinkController::class . ':edit');
 
 })->add($validateJwtMiddleware);
 
