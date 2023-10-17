@@ -55,7 +55,7 @@ class LinkController
     function clics(Request $request, Response $response){
         
         $user_uuid = $request->getAttribute('payload')->data->user_uuid;
-        $link = new Counter();
+        $link = new Link();
         $res = $link->clicTotal($user_uuid);
 
     }
