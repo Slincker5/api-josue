@@ -93,6 +93,7 @@ $app->group('/auth', function ($group) {
 $app->group('/view', function ($group) {
 
     $group->post('/logger', CounterController::class . ':view');
+    $group->post('/validate', CounterController::class . ':validate');
 
 });
 $app->run();

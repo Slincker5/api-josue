@@ -18,4 +18,15 @@ class CounterController
         return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
 
     }
+
+    
+
+    function validate(Request $request, Response $response) {
+        $body = $request->getParsedBody();
+        $link = new Counter();
+        $res = $link->validateLink($body['link_short']);
+
+        $response->getBody()->write(json_encode($res));
+        return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
+    }
 }
