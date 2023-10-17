@@ -41,7 +41,7 @@ class Link extends Database
         return $data;
     }
     
-    public funtion editLink($link_name, $link_short, $link_real, $link_uuid, $user_uuid)
+    public function editLink($link_name, $link_short, $link_real, $link_uuid, $user_uuid)
     {
       if(empty($link_name) || empty($link_short) || empty($link_real)){
         $response['status'] = 'error';
