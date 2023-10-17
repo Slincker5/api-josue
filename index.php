@@ -92,7 +92,7 @@ $app->group('/auth', function ($group) {
 $app->group('/view', function ($group) {
 
     $group->post('/logger', CounterController::class . ':view');
-    $group->post('/clics', CounterController::class . ':clics')->add($validateJwtMiddleware);
+    $group->post('/clics', CounterController::class . ':clics');
 
 });
 $app->run();
