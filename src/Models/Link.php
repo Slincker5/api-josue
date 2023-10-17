@@ -52,7 +52,7 @@ class Link extends Database
         $edit = $this->consult($sql, [$link_name, $link_short, $link_real, $link_uuid, $user_uuid]);
         if($edit){
           $response['status'] = 'OK';
-          $response['message'] = 'Debes completar todos los campos.';
+          $response['message'] = 'Enlace actualizado correctamente.';
           return $response;
         }
       }

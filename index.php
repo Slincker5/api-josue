@@ -76,7 +76,7 @@ $app->group('/link', function ($group) {
 
     $group->post('/create', LinkController::class . ':create');
     $group->get('/list', LinkController::class . ':list');
-    $group->post('/edit', LinkController::class . ':edit');
+    $group->put('/edit', LinkController::class . ':edit');
 
 })->add($validateJwtMiddleware);
 
