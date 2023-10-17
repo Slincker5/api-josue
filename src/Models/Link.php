@@ -68,4 +68,12 @@ class Link extends Database
             return $response;
         }
     }
+
+    public function clicTotal($user_uuid)
+    {
+        $sql = 'SELECT d.user_uuid, COUNT(c.link_uuid) AS total_clics FROM direcciones d LEFT JOIN clics c ON d.link_uuid = c.link_uuid WHERE d.user_uuid = ?';
+        $clic = $this->consult($sql, [$user_uuid]);
+        $data = $clic->fetchAll(\PDO::FETCH_ASSOC);
+        return $data;
+    }
 }
