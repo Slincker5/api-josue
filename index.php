@@ -79,6 +79,7 @@ $app->group('/link', function ($group) {
     $group->get('/list', LinkController::class . ':list');
     $group->put('/edit', LinkController::class . ':edit');
     $group->delete('/remove', LinkController::class . ':remove');
+    $group->get('/clics', LinkController::class . ':clics');
 
 })->add($validateJwtMiddleware);
 
@@ -92,7 +93,6 @@ $app->group('/auth', function ($group) {
 $app->group('/view', function ($group) {
 
     $group->post('/logger', CounterController::class . ':view');
-    $group->get('/clics', CounterController::class . ':clics');
 
 });
 $app->run();
