@@ -57,5 +57,15 @@ class Link extends Database
         }
       }
     }
-
+    
+    public function removeLink($link_uuid, $user_uuid)
+    {
+      $sql = 'DELETE FROM direcciones WHERE link_uuid = ? AND user_uuid = ?';
+      $edit = $this->consult($sql, [$link_uuid, $user_uuid]);
+      if($edit){
+        $response['status'] = 'OK';
+        $response['message'] = 'Enlace eliminado.';
+        return $response;
+      }
+    }
 }
