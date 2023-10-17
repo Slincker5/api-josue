@@ -1,6 +1,7 @@
 <?php
 use App\Controllers\AuthController;
 use App\Controllers\LinkController;
+use App\Controllers\CounterController;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Psr\Http\Message\ServerRequestInterface;
@@ -85,6 +86,12 @@ $app->group('/auth', function ($group) {
 
     $group->post('/register', AuthController::class . ':register');
     $group->post('/login', AuthController::class . ':login');
+
+});
+
+$app->group('/view', function ($group) {
+
+    $group->post('/logger', CounterController::class . ':view');
 
 });
 $app->run();

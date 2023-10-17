@@ -40,32 +40,32 @@ class Link extends Database
 
         return $data;
     }
-    
+
     public function editLink($link_name, $link_short, $link_real, $link_uuid, $user_uuid)
     {
-      if(empty($link_name) || empty($link_short) || empty($link_real)){
-        $response['status'] = 'error';
-        $response['message'] = 'Debes completar todos los campos.';
-        return $response;
-      }else{
-        $sql = 'UPDATE direcciones SET link_name = ?, link_short = ?, link_real = ? WHERE link_uuid = ? AND user_uuid = ?';
-        $edit = $this->consult($sql, [$link_name, $link_short, $link_real, $link_uuid, $user_uuid]);
-        if($edit){
-          $response['status'] = 'OK';
-          $response['message'] = 'Enlace actualizado correctamente.';
-          return $response;
+        if (empty($link_name) || empty($link_short) || empty($link_real)) {
+            $response['status'] = 'error';
+            $response['message'] = 'Debes completar todos los campos.';
+            return $response;
+        } else {
+            $sql = 'UPDATE direcciones SET link_name = ?, link_short = ?, link_real = ? WHERE link_uuid = ? AND user_uuid = ?';
+            $edit = $this->consult($sql, [$link_name, $link_short, $link_real, $link_uuid, $user_uuid]);
+            if ($edit) {
+                $response['status'] = 'OK';
+                $response['message'] = 'Enlace actualizado correctamente.';
+                return $response;
+            }
         }
-      }
     }
-    
+
     public function removeLink($link_uuid, $user_uuid)
     {
-      $sql = 'DELETE FROM direcciones WHERE link_uuid = ? AND user_uuid = ?';
-      $edit = $this->consult($sql, [$link_uuid, $user_uuid]);
-      if($edit){
-        $response['status'] = 'OK';
-        $response['message'] = 'Enlace eliminado.';
-        return $response;
-      }
+        $sql = 'DELETE FROM direcciones WHERE link_uuid = ? AND user_uuid = ?';
+        $edit = $this->consult($sql, [$link_uuid, $user_uuid]);
+        if ($edit) {
+            $response['status'] = 'OK';
+            $response['message'] = 'Enlace eliminado.';
+            return $response;
+        }
     }
 }
