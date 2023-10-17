@@ -58,5 +58,7 @@ class LinkController
         $link = new Link();
         $res = $link->clicTotal($user_uuid);
 
+        $response->getBody()->write(json_encode($res));
+        return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
     }
 }
