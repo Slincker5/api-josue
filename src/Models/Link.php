@@ -48,7 +48,7 @@ class Link extends Database
         $response['message'] = 'Debes completar todos los campos.';
         return $response;
       }else{
-        $sql = 'UDPDATE direcciones SET link_name = ?, link_short = ?, link_real = ? WHERE link_uuid = ? AND user_uuid = ?';
+        $sql = 'UPDATE direcciones SET link_name = ?, link_short = ?, link_real = ? WHERE link_uuid = ? AND user_uuid = ?';
         $edit = $this->consult($sql, [$link_name, $link_short, $link_real, $link_uuid, $user_uuid]);
         if($edit){
           $response['status'] = 'OK';
