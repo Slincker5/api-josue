@@ -77,10 +77,10 @@ class Link extends Database
         return $data;
     }
 
-    public function viewLink($link_uuid)
+    public function viewLink($link_uuid, $date)
     {
-        $sql = 'SELECT * FROM clics WHERE link_uuid = ? ORDER BY date DESC';
-        $clic = $this->consult($sql, [$link_uuid]);
+        $sql = 'SELECT * FROM `clics` WHERE link_uuid = ? AND DATE(date) = ? ORDER BY date DESC';
+        $clic = $this->consult($sql, [$link_uuid, $date]);
         $data = $clic->fetchAll(\PDO::FETCH_ASSOC);
         return $data;
     }

@@ -65,7 +65,7 @@ class LinkController
     function view(Request $request, Response $response){
         $body = $request->getParsedBody();
         $link = new Link();
-        $res = $link->viewLink($body['link_uuid']);
+        $res = $link->viewLink($body['link_uuid'], $body['date']);
 
         $response->getBody()->write(json_encode($res));
         return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
