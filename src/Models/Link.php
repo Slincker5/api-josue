@@ -77,10 +77,10 @@ class Link extends Database
         return $data;
     }
 
-    public function viewLink($link_uuid, $user_uuid)
+    public function viewLink($link_uuid)
     {
-        $sql = 'SELECT * FROM clics WHERE link_uuid = ? AND user_uuid = ?';
-        $clic = $this->consult($sql, [$link_uuid, $user_uuid]);
+        $sql = 'SELECT * FROM clics WHERE link_uuid = ?';
+        $clic = $this->consult($sql, [$link_uuid]);
         $data = $clic->fetchAll(\PDO::FETCH_ASSOC);
         return $data;
     }
