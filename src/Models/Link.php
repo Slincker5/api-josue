@@ -34,7 +34,7 @@ class Link extends Database
 
     public function listLink($user_uuid)
     {
-        $sql = 'SELECT * FROM direcciones WHERE user_uuid = ?';
+        $sql = 'SELECT * FROM direcciones WHERE user_uuid = ? ORDER BY fecha DESC';
         $view = $this->consult($sql, [$user_uuid]);
         $data = $view->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -79,7 +79,7 @@ class Link extends Database
 
     public function viewLink($link_uuid)
     {
-        $sql = 'SELECT * FROM clics WHERE link_uuid = ?';
+        $sql = 'SELECT * FROM clics WHERE link_uuid = ? ORDER BY fecha DESC';
         $clic = $this->consult($sql, [$link_uuid]);
         $data = $clic->fetchAll(\PDO::FETCH_ASSOC);
         return $data;
