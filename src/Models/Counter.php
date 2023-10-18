@@ -25,7 +25,7 @@ class Counter extends Database
 
     public function validateLink($link_short)
     {
-        $sql = 'SELECT link_uuid FROM direcciones WHERE link_short = ?';
+        $sql = 'SELECT link_uuid, link_real  FROM direcciones WHERE link_short = ?';
         $clic = $this->consult($sql, [$link_short]);
         $data = $clic->fetchAll(\PDO::FETCH_ASSOC);
         return $data;
