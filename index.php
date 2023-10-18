@@ -78,7 +78,7 @@ $app->group('/link', function ($group) {
     $group->post('/create', LinkController::class . ':create');
     $group->get('/list', LinkController::class . ':list');
     $group->put('/edit', LinkController::class . ':edit');
-    $group->delete('/remove', LinkController::class . ':remove');
+    $group->post('/remove', LinkController::class . ':remove');
     $group->get('/clics', LinkController::class . ':clics');
     $group->post('/view', LinkController::class . ':view');
 
