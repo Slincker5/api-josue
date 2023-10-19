@@ -79,7 +79,26 @@ class Link extends Database
 
     public function viewLink($link_uuid, $date)
     {
-        $sql = 'SELECT * FROM `clics` WHERE link_uuid = ? AND DATE(date) = ? ORDER BY date DESC';
+        $sql = 'SELECT 
+        c.*,
+        o.total_origin AS origins,
+        d.total_device AS devices
+    FROM `clics` c
+    LEFT JOIN (
+        SELECT origin, COUNT(origin) AS total_origin
+        FROM `clics`
+        WHERE link_uuid = ? AND DATE(date) = ?
+        GROUP BY origin
+    ) o ON c.origin = o.origin
+    LEFT JOIN (
+        SELECT device, COUNT(device) AS total_device
+        FROM `clics`
+        WHERE link_uuid = ? AND DATE(date) = ?
+        GROUP BY device
+    ) d ON c.device = d.device
+    WHERE c.link_uuid = ? AND DATE(c.date) = ?
+    ORDER BY c.date DESC;
+    ';
         $clic = $this->consult($sql, [$link_uuid, $date]);
         $data = $clic->fetchAll(\PDO::FETCH_ASSOC);
         return $data;
