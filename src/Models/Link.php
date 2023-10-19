@@ -96,13 +96,19 @@ class Link extends Database
     $sql_devices = "SELECT device, COUNT(*) AS total FROM `clics` WHERE link_uuid = ? GROUP BY device";
     $devicesResult = $this->consult($sql_devices, [$link_uuid])->fetchAll(\PDO::FETCH_ASSOC);
 
+    // Consulta para obtener el total de clics por fecha
+    $sql_date_clicks = "SELECT COUNT(*) AS total FROM `clics` WHERE link_uuid = ? AND DATE(date) = ?";
+    $dateClicksResult = $this->consult($sql_date_clicks, [$link_uuid, $date])->fetch(\PDO::FETCH_ASSOC);
+
     // Construir la estructura deseada
     $data = $mainResult[0];  // Tomamos el primer registro
     $data["origins"] = $originsResult;
     $data["devices"] = $devicesResult;
+    $data["clics"] = $dateClicksResult["total"];  // Agregamos el total de clics por fecha
 
     return [$data];  // Devuelve un arreglo que contiene la estructura deseada
 }
+
 
 
     public function viewCountryLink($link_uuid)
