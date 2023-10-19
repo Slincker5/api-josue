@@ -82,19 +82,19 @@ class Link extends Database
     // Consulta para el registro principal
     $sql_main = "SELECT id, link_uuid, origin, device, date FROM `clics` WHERE link_uuid = ? AND DATE(date) = ? ORDER BY date DESC LIMIT 1";
     $mainResult = $this->consult($sql_main, [$link_uuid, $date])->fetchAll(\PDO::FETCH_ASSOC);
-    
-    // Si no hay resultados principales, regresa un array vacío o maneja según necesites
+
+    // Si no hay resultados principales, regresa un array vacío
     if(empty($mainResult)) {
         return [];
     }
 
-    // Consulta para obtener la cuenta de clics por origen
-    $sql_origins = "SELECT origin AS country, COUNT(*) AS total FROM `clics` WHERE link_uuid = ? GROUP BY origin";
-    $originsResult = $this->consult($sql_origins, [$link_uuid])->fetchAll(\PDO::FETCH_ASSOC);
+    // Consulta para obtener la cuenta de clics por origen para la fecha dada
+    $sql_origins = "SELECT origin AS country, COUNT(*) AS total FROM `clics` WHERE link_uuid = ? AND DATE(date) = ? GROUP BY origin";
+    $originsResult = $this->consult($sql_origins, [$link_uuid, $date])->fetchAll(\PDO::FETCH_ASSOC);
 
-    // Consulta para obtener la cuenta de clics por dispositivo
-    $sql_devices = "SELECT device, COUNT(*) AS total FROM `clics` WHERE link_uuid = ? GROUP BY device";
-    $devicesResult = $this->consult($sql_devices, [$link_uuid])->fetchAll(\PDO::FETCH_ASSOC);
+    // Consulta para obtener la cuenta de clics por dispositivo para la fecha dada
+    $sql_devices = "SELECT device, COUNT(*) AS total FROM `clics` WHERE link_uuid = ? AND DATE(date) = ? GROUP BY device";
+    $devicesResult = $this->consult($sql_devices, [$link_uuid, $date])->fetchAll(\PDO::FETCH_ASSOC);
 
     // Consulta para obtener el total de clics por fecha
     $sql_date_clicks = "SELECT COUNT(*) AS total FROM `clics` WHERE link_uuid = ? AND DATE(date) = ?";
@@ -108,6 +108,7 @@ class Link extends Database
 
     return [$data];  // Devuelve un arreglo que contiene la estructura deseada
 }
+
 
 
 
