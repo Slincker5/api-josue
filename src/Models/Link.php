@@ -84,4 +84,17 @@ class Link extends Database
         $data = $clic->fetchAll(\PDO::FETCH_ASSOC);
         return $data;
     }
+
+    public function viewCountryLink($link_uuid)
+    {
+        $sql = 'SELECT origin AS pais, COUNT(*) as vistas
+        FROM clics
+        WHERE link_uuid = ?
+        GROUP BY origin
+        ORDER BY vistas DESC
+        ';
+        $clic = $this->consult($sql, [$link_uuid]);
+        $data = $clic->fetchAll(\PDO::FETCH_ASSOC);
+        return $data;
+    }
 }

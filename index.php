@@ -81,6 +81,8 @@ $app->group('/link', function ($group) {
     $group->post('/remove', LinkController::class . ':remove');
     $group->get('/clics', LinkController::class . ':clics');
     $group->post('/view', LinkController::class . ':view');
+    $group->post('/viewcountry', LinkController::class . ':viewcountry');
+
 
 })->add($validateJwtMiddleware);
 

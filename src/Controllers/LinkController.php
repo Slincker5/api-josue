@@ -70,4 +70,14 @@ class LinkController
         $response->getBody()->write(json_encode($res));
         return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
     }
+
+    function viewCountry(Request $request, Response $response){
+        $body = $request->getParsedBody();
+        $link = new Link();
+        $res = $link->viewCountryLink($body['link_uuid']);
+
+        $response->getBody()->write(json_encode($res));
+        return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
+
+    }
 }
