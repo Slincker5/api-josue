@@ -99,7 +99,7 @@ class Link extends Database
     WHERE c.link_uuid = ? AND DATE(c.date) = ?
     ORDER BY c.date DESC;
     ';
-        $clic = $this->consult($sql, [$link_uuid, $date]);
+        $clic = $this->consult($sql, [$link_uuid, $date, $link_uuid, $date, $link_uuid, $date]);
         $data = $clic->fetchAll(\PDO::FETCH_ASSOC);
         return $data;
     }
