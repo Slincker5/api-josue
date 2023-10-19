@@ -78,31 +78,32 @@ class Link extends Database
     }
 
     public function viewLink($link_uuid, $date)
-    {
-        $sql = 'SELECT 
-        c.*,
-        o.total_origin AS origins,
-        d.total_device AS devices
-    FROM `clics` c
-    LEFT JOIN (
-        SELECT origin, COUNT(origin) AS total_origin
-        FROM `clics`
-        WHERE link_uuid = ? AND DATE(date) = ?
-        GROUP BY origin
-    ) o ON c.origin = o.origin
-    LEFT JOIN (
-        SELECT device, COUNT(device) AS total_device
-        FROM `clics`
-        WHERE link_uuid = ? AND DATE(date) = ?
-        GROUP BY device
-    ) d ON c.device = d.device
-    WHERE c.link_uuid = ? AND DATE(c.date) = ?
-    ORDER BY c.date DESC;
-    ';
-        $clic = $this->consult($sql, [$link_uuid, $date, $link_uuid, $date, $link_uuid, $date]);
-        $data = $clic->fetchAll(\PDO::FETCH_ASSOC);
-        return $data;
+{
+    // Consulta para el registro principal
+    $sql_main = "SELECT id, link_uuid, origin, device, date FROM `clics` WHERE link_uuid = ? AND DATE(date) = ? ORDER BY date DESC LIMIT 1";
+    $mainResult = $this->consult($sql_main, [$link_uuid, $date])->fetchAll(\PDO::FETCH_ASSOC);
+    
+    // Si no hay resultados principales, regresa un array vacío o maneja según necesites
+    if(empty($mainResult)) {
+        return [];
     }
+
+    // Consulta para obtener la cuenta de clics por origen
+    $sql_origins = "SELECT origin AS country, COUNT(*) AS total FROM `clics` WHERE link_uuid = ? GROUP BY origin";
+    $originsResult = $this->consult($sql_origins, [$link_uuid])->fetchAll(\PDO::FETCH_ASSOC);
+
+    // Consulta para obtener la cuenta de clics por dispositivo
+    $sql_devices = "SELECT device, COUNT(*) AS total FROM `clics` WHERE link_uuid = ? GROUP BY device";
+    $devicesResult = $this->consult($sql_devices, [$link_uuid])->fetchAll(\PDO::FETCH_ASSOC);
+
+    // Construir la estructura deseada
+    $data = $mainResult[0];  // Tomamos el primer registro
+    $data["origins"] = $originsResult;
+    $data["devices"] = $devicesResult;
+
+    return [$data];  // Devuelve un arreglo que contiene la estructura deseada
+}
+
 
     public function viewCountryLink($link_uuid)
     {
